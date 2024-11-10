@@ -8,3 +8,9 @@ export const apiLogin = async (payload) => {
     return apiClient.post("/users/login", payload)
 
 }
+
+
+export const apiGetProfile = async () => {
+    return apiClient.get("/users/me")
+
+}

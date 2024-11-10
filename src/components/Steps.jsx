@@ -31,10 +31,10 @@ function Steps() {
             />
             
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
-             Sign up and Invite your friends
+             Sign up and Create/Join A Circle
             </h3>
             <p className="text-gray-600">
-              Send and receive friend requests to build your network.
+             If you are an admin or a member, create or join a circle.
             </p>
             {/* <span className="text-gray-600 text-2xl">→</span> Right Arrow */}
           </div>

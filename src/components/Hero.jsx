@@ -18,7 +18,7 @@
 //                         <button
 //                             type='submit' 
 //                             className="p-4  hover:bg-blue-800   text-white font-semibold text-xl w-34 bg-blue-800"
-                            
+
 //                         >
 //                             GET STARTED
 //                         </button>
@@ -40,38 +40,58 @@
 // export default Hero
 
 import React from 'react';
+import video from "../assets/images/video 4.mp4"
 
 function Hero() {
-  return (
-    <section 
-      className="relative bg-cover bg-center bg-no-repeat h-screen flex items-center justify-center text-white"
-      style={{ backgroundImage: "url('https://t3.ftcdn.net/jpg/07/21/57/96/360_F_721579671_jZZ2t12Sixbtwyu6uJKGomNGVn2PE96t.jpg')" }}
-    >
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black opacity-40"></div>
+  // return 
+  // (
+  //   <section 
+  //     className="relative bg-cover bg-center bg-no-repeat h-screen flex items-center justify-center text-white"
+  //     style={{ backgroundImage: "url('https://t3.ftcdn.net/jpg/07/21/57/96/360_F_721579671_jZZ2t12Sixbtwyu6uJKGomNGVn2PE96t.jpg')" }}
+  //   >
+  //     {/* Gradient Overlay */}
+  //     <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black opacity-40"></div>
 
-      {/* Content */}
+  //     {/* Content */}
+  //     <div className="relative z-10 text-center px-4">
+  //       <h1 className="text-4xl md:text-6xl font-bold mb-4">
+  //         Connect with Friends and Meet Up Safely
+  //       </h1>
+  //       <p className="text-lg md:text-xl mb-4">
+  //         Real-time location sharing and emergency alerts to stay connected and safe.
+  //       </p>
+  //       <p className="text-lg md:text-xl mb-8 font-semibold italic">
+  //         Where Connections meet Safety.
+  //       </p>
+  //         <a href="#learn-more" className="bg-transparent border-2 border-white px-6 py-3 rounded-lg hover:bg-white hover:text-black">
+  //           Get Started
+  //         </a>
+  //       </div>
+  //     {/* </div> */}
+  //   </section>
+  // );
+
+  return (
+    <section className="relative w-full h-screen overflow-hidden flex items-center justify-center text-white">
+      <video
+        autoPlay
+        muted
+        loop
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      >
+        <source src={video} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex flex-col items-center justify-center text-center text-black z-10"></div>
       <div className="relative z-10 text-center px-4">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          Connect with Friends and Meet Up Safely
-        </h1>
-        <p className="text-lg md:text-xl mb-4">
-          Real-time location sharing and emergency alerts to stay connected and safe.
-        </p>
-        <p className="text-lg md:text-xl mb-8 font-semibold italic">
-          Where Connections meet Safety.
-        </p>
-        {/* <div className="flex justify-center space-x-4">
-          <a href="#signup" className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
-            Sign Up
-          </a> */}
-          <a href="#learn-more" className="bg-transparent border-2 border-white px-6 py-3 rounded-lg hover:bg-white hover:text-black">
-            Get Started
-          </a>
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">Connect with Friends and Meet Up Safely</h1>
+        <p className="text-lg md:text-xl mb-4">Real-time location sharing and emergency alerts to stay connected and safe.</p>
+        <p className="text-lg md:text-xl mb-8 font-semibold italic">Where Connections meet Safety.</p>
         </div>
-      {/* </div> */}
     </section>
   );
-}
+};
+
 
 export default Hero;

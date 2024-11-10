@@ -1,55 +1,72 @@
 import React from 'react';
-import logo from "../../assets/images/image 25.png";
-import { FaHome, FaMap, FaUserFriends, FaBell, FaExclamationTriangle, FaUser, FaSignOutAlt } from 'react-icons/fa';
-import { FaMessage } from "react-icons/fa6";
+import { FaMapMarkerAlt, FaBell, FaEnvelope, FaUserFriends, FaPhoneAlt, FaExclamationTriangle } from "react-icons/fa";
+import pic from "../../assets/images/images 1.jpeg";
+import pics from "../../assets/images/images 2.jpeg";
+import picss from "../../assets/images/images 3.jpeg";
 
-const Dashboard = () => {
-    return (
-        <div className="flex min-h-screen bg-gray-100">
-            {/* Sidebar */}
-            <aside className="w-64 bg-blue-600 text-white flex flex-col">
-                <div >Social Meet</div>
-                <nav className="flex flex-col mt-4 space-y-4">
-                    <a href="#dashboard" className="flex items-center px-4 py-2 hover:bg-blue-700 transition">
-                        <FaHome className="mr-3" /> Dashboard
-                    </a>
-                    <a href="#map" className="flex items-center px-4 py-2 hover:bg-blue-700 transition">
-                        <FaMap className="mr-3" /> Map
-                    </a>
-                    <a href="#friendlist" className="flex items-center px-4 py-2 hover:bg-blue-700 transition">
-                        <FaUserFriends className="mr-3" /> Friend List
-                    </a>
-                    <a href="#panic" className="flex items-center px-4 py-2 hover:bg-blue-700 transition">
-                        <FaExclamationTriangle className="mr-3" /> Panic Button
-                    </a>
-                    <a href="#logout" className="flex items-center px-4 py-2 hover:bg-blue-700 transition">
-                        <FaSignOutAlt className="mr-3" /> Logout
-                    </a>
-                </nav>
-            </aside>
-
-            {/* Main Content */}
-            <div className="flex-1 flex flex-col">
-                {/* Navbar */}
-                <header className="flex items-center justify-between p-4 bg-white shadow">
-                <div className=" text-2xl font-bold">
-                    <img src={logo} alt="logo" className='h-16 w-16 mr-3 ' />
-                </div>
-                    <div className="flex items-center space-x-4">
-                        <FaBell className="text-gray-600 text-xl cursor-pointer" />
-                        <FaMessage className="text-gray-600 text-xl cursor-pointer" />
-                        <FaUser className="text-gray-600 text-xl cursor-pointer" />
-                    </div>
-                </header>
-
-                {/* Dashboard Content */}
-                <main className="p-6">
-                    <h2 className="text-3xl font-semibold text-gray-800">Welcome to the Dashboard</h2>
-                    {/* Insert the main content of your dashboard here */}
-                </main>
-            </div>
+const DashboardOverview = () => {
+  return (
+    <div className="p-6 space-y-6 bg-gray-100 rounded-lg shadow-lg">
+      
+      {/* User Profile Summary */}
+      <section className="flex items-center bg-white p-4 rounded-lg shadow-md space-x-4">
+        <img src={pic} alt="User" className="w-16 h-16 rounded-full object-cover" />
+        <div>
+          <h2 className="text-xl font-semibold text-gray-800">Welcome, Jackie</h2>
+          <p className="text-gray-500">Last seen: 5 mins ago</p>
         </div>
-    );
+      </section>
+
+      {/* Friends Status Summary */}
+      <section className="bg-white p-4 rounded-lg shadow-md">
+        <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+          <FaUserFriends className="text-blue-500" /> Friends Nearby
+        </h3>
+        <div className="flex space-x-4 mt-2">
+          <img src={pics} alt="Friend" className="w-10 h-10 rounded-full object-cover border-2 border-blue-500" />
+          <img src={picss} alt="Friend" className="w-10 h-10 rounded-full object-cover border-2 border-green-500" />
+        </div>
+      </section>
+
+      {/* Map Preview */}
+      <section className="bg-white p-4 rounded-lg shadow-md">
+        <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+          <FaMapMarkerAlt className="text-red-500" /> Location Overview
+        </h3>
+        <div className="bg-gray-200 h-40 w-full rounded-md flex items-center justify-center text-gray-500 text-sm">
+          [Mini Map Component]
+        </div>
+      </section>
+
+      {/* Notifications and Messages Preview */}
+      <section className="bg-white p-4 rounded-lg shadow-md">
+        <div className="space-y-2">
+          <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+            <FaBell className="text-yellow-500" /> Notifications
+          </h3>
+          <p className="text-gray-500">No new notifications</p>
+
+          <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2 mt-4">
+            <FaEnvelope className="text-blue-500" /> Messages
+          </h3>
+          <p className="text-gray-500">No new messages</p>
+        </div>
+      </section>
+
+      {/* Quick Actions */}
+      <section className="bg-white p-4 rounded-lg shadow-md">
+        <h3 className="text-lg font-semibold text-gray-800">Quick Actions</h3>
+        <div className="flex gap-4 mt-3">
+          <button className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow-md">
+            <FaPhoneAlt /> Emergency Contacts
+          </button>
+          <button className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow-md">
+            <FaExclamationTriangle /> Send Panic Alert
+          </button>
+        </div>
+      </section>
+    </div>
+  );
 };
 
-export default Dashboard;
+export default DashboardOverview;
