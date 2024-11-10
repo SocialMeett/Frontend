@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { apiGetProfile } from '../../services/auth';  // Import the apiGetProfile function
+import { apiGetProfile } from '../../services/auth';  
 import axios from 'axios';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState(null);
-  const [error, setError] = useState(null);  // State to handle errors
+  const [error, setError] = useState(null);  
 
   useEffect(() => {
-    // Fetch user profile when the component mounts
-    const token = localStorage.getItem("token");  // Get the token from localStorage
+    const token = localStorage.getItem("token");  
 
     if (token) {
-      // If there's a token, set it in the Authorization header
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       apiGetProfile()
         .then(response => {
-          setProfile(response.data);  // Set the profile data in state
-          setError(null);  // Clear any previous errors
+          setProfile(response.data); 
+          setError(null);  
         })
         .catch(error => {
           console.error('Error fetching the profile data:', error);
@@ -27,9 +25,9 @@ const UserProfile = () => {
       console.error('No token found in localStorage!');
       setError('You need to be logged in to view the profile.');
     }
-  }, []);  // Only run this effect once on component mount
+  }, []);  
 
-  // Show loading or error message if profile data isn't ready
+ 
   if (error) return <div className="text-red-500">{error}</div>;
   if (!profile) return <div>Loading...</div>;
 
@@ -46,7 +44,7 @@ const UserProfile = () => {
         Last Updated At: {new Date(profile.updatedAt).toLocaleString()}
       </p>
 
-      {/* Friends List */}
+     
       <h3 className="text-xl font-semibold mt-4">Friends</h3>
       <ul className="list-disc list-inside text-gray-700">
         {profile.friends && profile.friends.length > 0 ? (

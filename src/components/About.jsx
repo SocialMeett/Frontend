@@ -86,13 +86,9 @@ function About() {
     return (
         <section className="py-16 bg-gray-50" id="about">
             <div className="container mx-auto px-4 text-center md:text-left md:w-2/3 lg:w-1/2">
-
-                {/* Title */}
                 <h2 className="text-3xl font-bold text-gray-800 mb-4">
                     About Us
                 </h2>
-
-                {/* Content */}
                 <p className="text-gray-600 mb-4">
                     Welcome to Social Meet! We’re a team dedicated to helping people connect effortlessly and safely. Our platform allows friends to share locations plan trips, and stay updated with real-time notifications, all while prioritizing your safety with emergency alerts and proximity notifications.
                 </p>
@@ -101,7 +97,7 @@ function About() {
                     physical and digital interactions. We believe that connecting with friend                     should be seamless and stress-free, and we're committed to delivering that with Social Meet.
                 </p>
 
-                {/* CTA Button */}
+                
                 <button className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
                     Learn More
                 </button>

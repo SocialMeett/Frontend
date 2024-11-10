@@ -5,14 +5,12 @@ import { IoMdSettings } from 'react-icons/io';
 
 const Navbar2 = ({ setShowUserProfile }) => {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
-
-    // Toggle profile dropdown visibility
     const toggleProfileDropdown = () => setIsProfileOpen(!isProfileOpen);
 
     // Handle "My Profile" click
     const handleProfileClick = () => {
-        setShowUserProfile(true);  // Show profile view in DashboardLayout
-        setIsProfileOpen(false);   // Close dropdown
+        setShowUserProfile(true);  
+        setIsProfileOpen(false);  
     };
 
     return (

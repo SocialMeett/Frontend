@@ -11,7 +11,7 @@ const EmergencyContactForm = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editIndex, setEditIndex] = useState(null);
 
-    // Handle form input change
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -20,21 +20,19 @@ const EmergencyContactForm = () => {
         }));
     };
 
-    // Handle form submission
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isEditing) {
-            // Update contact details if editing
             const updatedContacts = [...contacts];
             updatedContacts[editIndex] = formData;
             setContacts(updatedContacts);
             setIsEditing(false);
             setEditIndex(null);
         } else {
-            // Add new contact
             setContacts([...contacts, formData]);
         }
-        // Clear form
+       
         setFormData({
             contactName: '',
             relationship: '',
@@ -43,14 +41,14 @@ const EmergencyContactForm = () => {
         });
     };
 
-    // Handle edit action
+    
     const handleEdit = (index) => {
         setIsEditing(true);
         setEditIndex(index);
         setFormData(contacts[index]);
     };
 
-    // Handle delete action
+    
     const handleDelete = (index) => {
         const updatedContacts = contacts.filter((_, i) => i !== index);
         setContacts(updatedContacts);
@@ -62,7 +60,6 @@ const EmergencyContactForm = () => {
                 {isEditing ? "Edit Contact" : "Emergency Contact Form"}
             </h2>
             <form onSubmit={handleSubmit}>
-                {/* Contact Name */}
                 <div className="mb-4">
                     <label htmlFor="contactName" className="block text-sm font-medium text-gray-700 mb-1">
                         Contact Name
@@ -79,7 +76,7 @@ const EmergencyContactForm = () => {
                     />
                 </div>
 
-                {/* Relationship */}
+                
                 <div className="mb-4">
                     <label htmlFor="relationship" className="block text-sm font-medium text-gray-700 mb-1">
                         Relationship
@@ -96,7 +93,7 @@ const EmergencyContactForm = () => {
                     />
                 </div>
 
-                {/* Phone Number */}
+                
                 <div className="mb-4">
                     <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
                         Phone Number
@@ -113,7 +110,7 @@ const EmergencyContactForm = () => {
                     />
                 </div>
 
-                {/* Email */}
+              
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                         Email Address
@@ -130,7 +127,7 @@ const EmergencyContactForm = () => {
                     />
                 </div>
 
-                {/* Submit Button */}
+               
                 <div className="mt-6">
                     <button
                         type="submit"
@@ -141,7 +138,7 @@ const EmergencyContactForm = () => {
                 </div>
             </form>
 
-            {/* Display List of Contacts */}
+            
             <div className="mt-6">
                 <h3 className="text-xl font-semibold mb-2">Emergency Contacts</h3>
                 <ul className="space-y-2">
