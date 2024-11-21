@@ -12,13 +12,13 @@ function Features() {
     {
       icon: <FiClock className="text-orange-600 w-12 h-12 mb-4" />,
       title: "Trip Planner / ETA",
-      description: "Keep your friends updated on your arrival time. Share your ETA for a more coordinated and stress-free gathering.",
+      description: "Keep your circle updated on your arrival time. Share your ETA for a more coordinated and stress-free gathering.",
       backgroundColor: "#eee4f2 "
     },
     {
       icon: <FiBell className="text-orange-600 w-12 h-12 mb-4" />,
       title: "Proximity Alerts",
-      description: "Our Proximity Alerts feature sends you an instant alert whenever someone on your friends list is within a predefined distance.",
+      description: "Our Proximity Alerts feature sends you an instant alert whenever someone in your circle is within a predefined distance.",
       backgroundColor: "#d1e8ca"
     },
     {
@@ -30,13 +30,13 @@ function Features() {
     {
       icon: <FiAlertCircle className="text-orange-600 w-12 h-12 mb-4" />,
       title: "Emergency Panic Button",
-      description: "The Emergency Panic Button allows you to send an immediate alert to your selected contacts with your real-time location in case of an emergency. With one quick tap, notify friends and family, ensuring they’re aware of your situation and can assist or take action.",
+      description: "The Emergency Panic Button allows you to send an immediate alert to your selected contacts with your real-time location in case of an emergency. With one quick tap, notify friends, family and colleagues, ensuring they’re aware of your situation and can assist or take action.",
       backgroundColor: "#dbd9b4"
     },
   ];
 
   return (
-    <section className="py-20 bg-gray-50" id="features">
+    <section className="py-20 bg-white" id="features">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
           Key Features

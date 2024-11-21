@@ -8,17 +8,25 @@ const DashboardLayout = () => {
     const [showUserProfile, setShowUserProfile] = useState(false);
 
     return (
-        <div className="dashboard-layout flex">
-            <Sidebar />
-            
-            <div className="w-full">
-                <Navbar2 setShowUserProfile={setShowUserProfile} />
+        <div className="dashboard-layout flex h-screen overflow-hidden">
+            {/* Sidebar - Fixed to the left */}
+            <div className="fixed top-0 left-0 h-full w-64 bg-gray-800 text-white">
+                <Sidebar />
+            </div>
 
-                <div className="p-4">
+            {/* Main Content */}
+            <div className="flex-1 ml-64">
+                {/* Navbar - Fixed to the top */}
+                <div className="fixed top-0 left-64 right-0 z-50 bg-white shadow-md">
+                    <Navbar2 setShowUserProfile={setShowUserProfile} />
+                </div>
+
+                {/* Scrollable Content Area */}
+                <div className="pt-16 overflow-y-auto h-full p-4 bg-gray-100">
                     {showUserProfile ? (
-                        <UserProfile /> 
+                        <UserProfile />
                     ) : (
-                        <Outlet /> 
+                        <Outlet />
                     )}
                 </div>
             </div>

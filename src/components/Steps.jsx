@@ -10,7 +10,7 @@ import { BsFill4CircleFill } from "react-icons/bs";
 
 function Steps() {
   return (
-    <section className="py-20 bg-white" id="steps">
+    <section className="py-20 bg-gray-50" id="steps">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-[#1F2944] mb-12">
           Connect with Friends in 4 easy steps
@@ -79,7 +79,7 @@ function Steps() {
               Emergency Alerts
             </h3>
             <p className="text-gray-600">
-              Add an emergengy contact list and send a panic alert to your friends in case of an emergency.
+              Add an emergengy contact list and send a panic alert to your circle in case of an emergency.
             </p>
           </div>
         </div>

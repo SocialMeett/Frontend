@@ -1,18 +1,19 @@
 import React from 'react';
-import logo from "../assets/images/image 25.png"
+import logo from "../assets/images/pic 19.png"
 import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <nav className="bg-white shadow-md p-4">
+    <nav className="bg-white shadow-md">
       <div className="container mx-auto flex justify-between">
         <div className="text-2xl font-bold text-blue-600">
-          <img src={logo} alt="logo" className='h-20 w-24 mr-3 ' />  
+          <img src={logo} alt="logo" className=' mr-3 h-32 w-32' />  
         </div>
 
       
         <div className="hidden md:flex space-x-8 items-center   ">
           <a href="#features" className="text-gray-700  hover:text-blue-600">Features</a>
+          <a href="#steps" className="text-gray-700  hover:text-blue-600">Guide</a>
           <a href="#about" className="text-gray-700 hover:text-blue-600">About</a>
           <a href="#contact" className="text-gray-700 hover:text-blue-600">Contact</a>
            

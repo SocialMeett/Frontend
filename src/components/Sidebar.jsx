@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUserFriends, FaMapMarkedAlt, FaExclamationCircle, FaBell, FaEnvelope, FaUserCircle, FaBars } from 'react-icons/fa';
 import { CiLogout } from "react-icons/ci";
-import logo from "../assets/images/image 25.png";
+import logo from "../assets/images/pic 19.png";
 import { MdContactEmergency } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
 
