@@ -21,24 +21,24 @@ export const logout = () => {
   
 
  
-  export const apiUpdateProfile = async (id, newLocation) => {
+  export const apiUpdateProfile = async (locationData) => {
     try {
-      const response = await apiClient.patch(
-        `/users/${id}`,
-        {
-          latitude: newLocation.latitude,
-          longitude: newLocation.longitude
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      return response;
+        const response = await apiClient.patch(
+            `/users/me`,
+            {
+                latitude: locationData.location.latitude,
+                longitude: locationData.location.longitude
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        return response;
     } catch (error) {
-      console.error("Error in apiUpdateProfile:", error);
-      throw error;
+        console.error("Error in apiUpdateProfile:", error);
+        throw error;
     }
-  };
+};
   

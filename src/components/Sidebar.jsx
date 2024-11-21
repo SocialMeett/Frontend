@@ -29,6 +29,12 @@ const Sidebar = () => {
                     <li className="mb-8">
                         <NavLink to="/dashboard" className="flex items-center space-x-2 hover:text-blue-300" activeClassName="text-blue-300">
                             <FaUserCircle />
+                            <span>Map</span>
+                        </NavLink>
+                    </li>
+                    <li className="mb-8">
+                        <NavLink to="/dashboard/overview" className="flex items-center space-x-2 hover:text-blue-300" activeClassName="text-blue-300">
+                            <FaMapMarkedAlt />
                             <span>Dashboard</span>
                         </NavLink>
                     </li>
@@ -50,12 +56,7 @@ const Sidebar = () => {
                             <span>Messages</span>
                         </NavLink>
                     </li>
-                    <li className="mb-8">
-                        <NavLink to="/dashboard/map" className="flex items-center space-x-2 hover:text-blue-300" activeClassName="text-blue-300">
-                            <FaMapMarkedAlt />
-                            <span>Map</span>
-                        </NavLink>
-                    </li>
+                    
                     <li className="mb-8">
                         <NavLink to="/dashboard/emergency" className="flex items-center space-x-2 hover:text-blue-300" activeClassName="text-blue-300">
                             <MdContactEmergency />

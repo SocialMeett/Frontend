@@ -1,14 +1,15 @@
 import React from 'react';
 import {
     APIProvider,
-    Map as GoogleMap} from '@vis.gl/react-google-maps';
+    Map as GoogleMap
+} from '@vis.gl/react-google-maps';
 
 const API_KEY = "";
 
 const Map = () => {
     return (
         <div className="bg-white p-6 rounded-lg shadow">
-            <h2 className="text-2xl font-bold mb-4">Map (Default)</h2>
+            <h2 className="text-2xl font-bold mb-4">Map</h2>
             <div className="h-screen bg-gray-300 rounded-lg flex items-center justify-center">
                 {/* Placeholder for Map */}
                 {/* <p>Map Display</p> */}

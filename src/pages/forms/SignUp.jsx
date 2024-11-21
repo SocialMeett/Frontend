@@ -30,8 +30,8 @@ const SignUp = () => {
       const fullName = formData.get("fullName");
       const email = formData.get("email");
       const password = formData.get("password");
-      const latitude = formData.get("latitude");
-      const longitude = formData.get("longitude");
+      const latitude = Number(formData.get("latitude")); 
+      const longitude = Number(formData.get("longitude"));
       const role = formData.get("role");
 
       const payload = { fullName, email, password, role, latitude, longitude };
@@ -117,21 +117,23 @@ const SignUp = () => {
             <div className="relative">
               <FaLocationDot className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
-                name="Latitude"
+                name="latitude"
                 type="number"
+                step="any"
                 placeholder="Enter your latitude"
                 className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-[4px] text-sm focus:outline-none focus:border-gray-400"
-                
+                required
               />
             </div>
             <div className="relative">
               <FaLocationDot className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
-                name="Longitude"
+                name="longitude"
                 type="number"
+                step="any"
                 placeholder="Enter your longitude"
                 className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-[4px] text-sm focus:outline-none focus:border-gray-400"
-                
+                required
               />
             </div>
 
@@ -179,7 +181,7 @@ const SignUp = () => {
           <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white p-8">
             <div className="max-w-[280px] text-center">
               <h2 className="text-2xl font-medium mb-2">
-                Join the Social Meet App
+                Join the Track Meet App
               </h2>
               <p className="text-white/90">
                 and connect with your circle safely.
