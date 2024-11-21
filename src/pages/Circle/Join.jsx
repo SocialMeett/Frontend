@@ -4,9 +4,9 @@ import { apiJoinCircle } from "../../services/product";
 
 const JoinCircle = () => {
   const [code, setCode] = useState(""); // State to track the invite code
-  const [loading, setLoading] = useState(false); // Loading state for button
-  const [error, setError] = useState(""); // Error message state
-  const navigate = useNavigate(); // Navigation hook
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(""); 
+  const navigate = useNavigate(); 
 
   // Handle keyup event for alphanumeric validation and focus movement
   const handleKeyUp = (e, nextInputId) => {
@@ -24,17 +24,15 @@ const JoinCircle = () => {
     setLoading(true);
     setError("");
 
-    const token = localStorage.getItem("token"); // Get token from localStorage
-
     try {
-      // Call the API function and pass the invite code with token
-      const response = await apiJoinCircle({ inviteCode: code }, token);
+      // Call the API function and pass the invite code
+      const response = await apiJoinCircle(code); // Pass only the code
 
       // Validate the response for errors
-      if (response.error) {
-        setError(response.error); // Set error message from server
+      if (response.data.error) { 
+        setError(response.data.error);
       } else {
-        navigate("/dashboard"); // Navigate to dashboard on success
+        navigate("/dashboard"); 
       }
     } catch (err) {
       // Set error message for unexpected issues

@@ -53,7 +53,7 @@ const router = createBrowserRouter([
 children: [
     {
         index: "true",
-        element:<DashboardOverview/>
+        element:<Map/>
     },
     {
         path: "friends",
@@ -64,8 +64,8 @@ children: [
         element:<PanicButton/>
     },
     {
-        path: "map",
-        element:<Map/>
+        path: "overview",
+        element:<DashboardOverview/>
     },
     {
         path: "logout",

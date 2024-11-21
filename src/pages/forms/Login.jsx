@@ -108,7 +108,7 @@ const Login = () => {
               </button>
 
               <p className="text-center text-sm text-gray-600">
-                Don't have an account?{" "}
+              New to Trackmeet?{" "}
                 <Link to="/signup" className="text-blue-600 hover:underline">
                   Sign up now
                 </Link>

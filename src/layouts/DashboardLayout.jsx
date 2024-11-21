@@ -6,6 +6,7 @@ import { Outlet } from 'react-router-dom';
 
 const DashboardLayout = () => {
     const [showUserProfile, setShowUserProfile] = useState(false);
+    const [userLocation, setUserLocation] = useState({ latitude: '', longitude: '' });
 
     return (
         <div className="dashboard-layout flex h-screen overflow-hidden">
@@ -18,13 +19,13 @@ const DashboardLayout = () => {
             <div className="flex-1 ml-64">
                 {/* Navbar - Fixed to the top */}
                 <div className="fixed top-0 left-64 right-0 z-50 bg-white shadow-md">
-                    <Navbar2 setShowUserProfile={setShowUserProfile} />
+                    <Navbar2 setShowUserProfile={setShowUserProfile} setUserLocation={setUserLocation} />
                 </div>
 
                 {/* Scrollable Content Area */}
                 <div className="pt-16 overflow-y-auto h-full p-4 bg-gray-100">
                     {showUserProfile ? (
-                        <UserProfile />
+                        <UserProfile userLocation={userLocation} />
                     ) : (
                         <Outlet />
                     )}

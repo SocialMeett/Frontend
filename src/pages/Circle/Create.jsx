@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiCreateCircle } from "../../services/product"; // Import the API function
+import { apiCreateCircle } from "../../services/product";
+import Swal from "sweetalert2";
 
 const CreateCircle = () => {
   const [circleName, setCircleName] = useState("");
@@ -15,26 +16,53 @@ const CreateCircle = () => {
     setError("");
 
     try {
-      // Retrieve token from localStorage
       const token = localStorage.getItem("token");
-
       if (!token) {
-        throw new Error("Authentication token is missing. Please log in again.");
+        throw new Error("Please login first");
       }
 
-      // Call the API with the payload and token in the headers
+      if (!circleName.trim()) {
+        throw new Error("Circle name cannot be empty");
+      }
+
+      // Call the API with the payload
       const payload = { name: circleName };
       const response = await apiCreateCircle(payload, token);
 
-      // Extract the invite code from the response
-      const { inviteCode } = response.data;
-      setInviteCode(inviteCode); // Save the invite code to state
+      // Check if response exists and has data
+      if (!response || !response.data) {
+        throw new Error("Invalid response from server");
+      }
+
+      setInviteCode(response.data.inviteCode);
+
+      if (response.status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Circle created successfully!",
+          confirmButtonText: "OK",
+        });
+      }
     } catch (err) {
+      console.error("Error creating circle:", err);
+      let errorMessage = "Failed to create circle. Please try again.";
+
+      if (err.message === "Please login first") {
+        errorMessage = "Please login to create a circle";
+        navigate("/login");
+      } else if (err.message === "Circle name cannot be empty") {
+        errorMessage = err.message;
+      } else if (err.response?.data?.message) {
+        errorMessage = err.response.data.message;
+      }
+
+      setError(errorMessage);
       Swal.fire({
         icon: "error",
-        title: "Failed",
-        text: error.response?.data?.message || "Something went wrong!",
-        confirmButtonText: "Try Again",
+        title: "Error",
+        text: errorMessage,
+        confirmButtonText: "OK",
       });
     } finally {
       setLoading(false);
@@ -77,12 +105,28 @@ const CreateCircle = () => {
                 <div className="bg-gray-100 p-2 rounded-lg text-lg font-bold text-gray-800 mb-4">
                   {inviteCode}
                 </div>
-                <button
-                  onClick={() => navigate("/dashboard")}
-                  className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
-                >
-                  Go to Dashboard
-                </button>
+                <div className="flex justify-center gap-4">
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(inviteCode);
+                      Swal.fire({
+                        icon: "success",
+                        title: "Copied!",
+                        text: "Invite code copied to clipboard",
+                        timer: 1500,
+                      });
+                    }}
+                    className="bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600"
+                  >
+                    Copy Code
+                  </button>
+                  <button
+                    onClick={() => navigate("/dashboard")}
+                    className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+                  >
+                    Go to Dashboard
+                  </button>
+                </div>
               </div>
             )}
           </div>
