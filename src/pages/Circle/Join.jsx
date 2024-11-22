@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiJoinCircle } from "../../services/product";
+import Swal from "sweetalert2";
 
 const JoinCircle = () => {
   const [code, setCode] = useState(""); // State to track the invite code
@@ -25,20 +26,35 @@ const JoinCircle = () => {
     setError("");
 
     try {
-      // Call the API function and pass the invite code
-      const response = await apiJoinCircle(code); // Pass only the code
+      if (code.length !== 8) {
+        throw new Error("Please enter a complete 8-character invite code");
+      }
 
-      // Validate the response for errors
-      if (response.data.error) { 
-        setError(response.data.error);
-      } else {
-        navigate("/dashboard"); 
+      const cleanCode = code.trim();
+      console.log("Attempting to join with code:", cleanCode);
+      
+      const response = await apiJoinCircle(cleanCode);
+      
+      if (response.data) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Successfully joined the circle!',
+        });
+        navigate("/dashboard");
       }
     } catch (err) {
-      // Set error message for unexpected issues
-      setError(
-        err.response?.data?.message || "An error occurred. Please try again."
-      );
+      console.error("Join circle error:", err);
+      
+      const errorMessage = err.response?.data?.error || 
+                         "Failed to join circle. Please try again.";
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: errorMessage,
+      });
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -49,6 +65,22 @@ const JoinCircle = () => {
     const newCode = code.split(""); // Split code into array
     newCode[index] = e.target.value; // Update specific character
     setCode(newCode.join("")); // Join back to a string
+  };
+
+  // Handle paste event to distribute characters across inputs
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData("text").slice(0, 8); // Get the first 8 characters
+    const newCode = pastedData.split("");
+
+    // Update the code and populate the inputs
+    setCode(pastedData);
+    newCode.forEach((char, index) => {
+      const input = document.getElementById(`code-${index}`);
+      if (input) {
+        input.value = char;
+      }
+    });
   };
 
   return (
@@ -76,9 +108,9 @@ const JoinCircle = () => {
                   id={inputId}
                   type="text"
                   maxLength="1"
-                  value={code[index] || ""}
                   onChange={(e) => handleChange(e, index)}
                   onKeyUp={(e) => handleKeyUp(e, nextInputId)}
+                  onPaste={handlePaste}
                   className="w-12 h-12 text-xl text-center border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder=""
                 />

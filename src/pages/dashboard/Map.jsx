@@ -4,7 +4,7 @@ import {
     Map as GoogleMap
 } from '@vis.gl/react-google-maps';
 
-const API_KEY = "";
+const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 const Map = () => {
     return (

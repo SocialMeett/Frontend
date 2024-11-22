@@ -1,93 +1,93 @@
-
 import React, { useEffect, useState } from 'react';
 import { apiGetProfile, apiUpdateProfile } from '../../services/auth';  
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null); 
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     latitude: '',
     longitude: '',
     role: '',
-    circle: ''
+    circle: []
   });
 
   useEffect(() => {
-    const token = localStorage.getItem("token");  
-
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-      apiGetProfile()
-        .then(response => {
-          setProfile(response.data); 
-          setFormData({
-            fullName: response.data.fullName,
-            email: response.data.email,
-            latitude: response.data.latitude,
-            longitude: response.data.longitude,
-            circle: response.data.circle,
-            role: response.data.role
-          });
-          setError(null);  
-        })
-        .catch(error => {
-          console.error('Error fetching the profile data:', error);
-          setError('Failed to load profile. Please try again later.');
-        });
+    const fetchProfile = async () => {
+      try {
+        const response = await apiGetProfile();
+        console.log('Profile Response:', response.data); 
         
-    } else {
-      console.error('No token found in localStorage!');
-      setError('You need to be logged in to view the profile.');
-    }
-  }, []);  
+        if (response.data) {
+          setProfile(response.data);
+          setFormData({
+            fullName: response.data.fullName || '',
+            email: response.data.email || '',
+            latitude: response.data.latitude || '',
+            longitude: response.data.longitude || '',
+            circle: response.data.circle || [],
+            role: response.data.role || ''
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+        if (error.message === 'No token found' || error.response?.status === 401) {
+          navigate('/login');
+        } else {
+          setError('Failed to load profile');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value,
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error('No token found');
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      const updatedProfile = await apiUpdateProfile(profile.id, formData);
-      setProfile(updatedProfile.data);
-      setError(null);
-      alert('Profile updated successfully!');
+      // Include latitude and longitude in the update request, even though they are not editable
+      const updateData = {
+        fullName: formData.fullName,
+        email: formData.email,
+        latitude: formData.latitude,  // Send latitude even though it's not editable
+        longitude: formData.longitude, // Send longitude even though it's not editable
+        role: formData.role // If the role is part of the update
+      };
+
+      const response = await apiUpdateProfile(updateData);
+      if (response.data) {
+        setProfile(response.data);
+        alert('Profile updated successfully!');
+      }
     } catch (error) {
       console.error('Error updating profile:', error);
-      setError('Failed to update profile. Please try again later.');
+      setError('Failed to update profile');
     }
   };
 
-  // New function to update latitude and longitude
-  const updateLocation = (location) => {
-    setFormData(prevData => ({
-      ...prevData,
-      latitude: location.latitude,
-      longitude: location.longitude,
-    }));
-  };
-
+  if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
-  if (!profile) return <div>Loading...</div>;
+  if (!profile) return <div>No profile data available</div>;
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg space-y-4">
       <h2 className="text-2xl font-semibold text-gray-800">{profile.fullName}</h2>
       <p className="text-gray-600">Email: {profile.email}</p>
       <p className="text-gray-600">Role: {profile.role}</p>
-      <p className="text-gray-600">Circle: {profile.circle}</p>
       <p className="text-gray-600">Latitude: {formData.latitude || 'Not specified'}</p>
       <p className="text-gray-600">Longitude: {formData.longitude || 'Not specified'}</p>
 
@@ -97,6 +97,20 @@ const UserProfile = () => {
       <p className="text-gray-500">
         Last Updated At: {new Date(profile.updatedAt).toLocaleString()}
       </p>
+
+      {/* Display Circles */}
+      <h3 className="text-xl font-semibold mt-4">Circles</h3>
+      {formData.circle.length > 0 ? (
+        <ul className="list-disc pl-6 space-y-2">
+          {formData.circle.map((circle, index) => (
+            <li key={index} className="text-gray-700">
+              {typeof circle === 'string' ? circle : JSON.stringify(circle)}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-gray-600">No circles associated with this user.</p>
+      )}
 
       <h3 className="text-xl font-semibold mt-4">Update Profile</h3>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -124,38 +138,26 @@ const UserProfile = () => {
           />
         </div>
 
-        <div>
-          <label className="block text-gray-700">Circle</label>
-          <input
-            type="text"
-            name="circle"
-            value={formData.circle}
-            onChange={handleChange}
-            className="mt-1 p-2 border rounded w-full"
-          />
-        </div>
-
+        {/* Read-only Latitude and Longitude */}
         <div>
           <label className="block text-gray-700">Latitude</label>
           <input
-            type="number"
+            type="text"
             name="latitude"
             value={formData.latitude}
-            onChange={handleChange}
-            className="mt-1 p-2 border rounded w-full"
-            readOnly
+            className="mt-1 p-2 border rounded w-full bg-gray-200"
+            disabled // Make the field non-editable
           />
         </div>
 
         <div>
           <label className="block text-gray-700">Longitude</label>
           <input
-            type="number"
+            type="text"
             name="longitude"
             value={formData.longitude}
-            onChange={handleChange}
-            className="mt-1 p-2 border rounded w-full"
-            readOnly
+            className="mt-1 p-2 border rounded w-full bg-gray-200"
+            disabled // Make the field non-editable
           />
         </div>
 
@@ -171,5 +173,3 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
-
-

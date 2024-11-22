@@ -36,59 +36,78 @@ const testimonials = [
 ];
 
 function AboutAndTestimonials() {
-    // Slick Carousel settings
     const settings = {
         dots: true,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true, // Enable autoplay
-        autoplaySpeed: 4000, // Change slides every 4 seconds
-        arrows: true, // Retain arrows for manual navigation
+        autoplay: true,
+        autoplaySpeed: 4000,
+        arrows: true,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: false // Hide arrows on mobile
+                }
+            }
+        ]
     };
 
     return (
-        <section className="py-16 bg-white" id="about">
-            <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between gap-12">
-                {/* About Section */}
-                <div className="lg:w-1/2 text-center lg:text-left">
-                    <h2 className="text-3xl font-bold text-gray-800 mb-4">About Us</h2>
-                    <p className="text-gray-600 mb-6">
-                        At TrackMeet, we simplify connections with real-time location sharing, ETA updates, and emergency alerts. Whether you're meeting friends, coordinating teams, or managing logistics, we make every interaction smarter and safer.
-                    </p>
-                    <p className="text-gray-600 mb-6">
-                        Our mission is to bring convenience, efficiency, and peace of mind to both individuals and businesses, helping you stay connected and in control wherever you are.
-                    </p>
-                    <p className="text-gray-600 mb-6">
-                        From keeping families safe to optimizing field services and logistics, TrackMeet is transforming how we navigate both our personal and professional lives. Join us as we redefine coordination, bringing convenience and peace of mind to every moment.
-                    </p>
-                    <button className="bg-orange-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-orange-600 transition duration-300">
-                        Learn More
-                    </button>
-                </div>
+        <section className="py-8 md:py-16 bg-white" id="about">
+            <div className="container mx-auto px-4">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+                    {/* About Section */}
+                    <div className="w-full lg:w-1/2 text-center lg:text-left">
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">About Us</h2>
+                        <p className="text-gray-600 mb-4 md:mb-6">
+                            At TrackMeet, we simplify connections with real-time location sharing, ETA updates, and emergency alerts. Whether you're meeting friends, coordinating teams, or managing logistics, we make every interaction smarter and safer.
+                        </p>
+                        <p className="text-gray-600 mb-4 md:mb-6">
+                            Our mission is to bring convenience, efficiency, and peace of mind to both individuals and businesses, helping you stay connected and in control wherever you are.
+                        </p>
+                        <p className="text-gray-600 mb-4 md:mb-6">
+                            From keeping families safe to optimizing field services and logistics, TrackMeet is transforming how we navigate both our personal and professional lives. Join us as we redefine coordination, bringing convenience and peace of mind to every moment.
+                        </p>
+                        <button className="bg-orange-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-orange-600 transition duration-300">
+                            Learn More
+                        </button>
+                    </div>
 
-                {/* Testimonials Section */}
-                <div className="lg:w-1/2">
-                    <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
-                        What Our Clients Say
-                    </h2>
-                    <Slider {...settings} className="testimonial-slider">
-                        {testimonials.map((testimonial) => (
-                            <div key={testimonial.id} className="text-center bg-[#DBD9B4] p-12 rounded-lg shadow-md">
-                                {/* Circular Image */}
-                                <img
-                                    src={testimonial.image}
-                                    alt={testimonial.name}
-                                    className="w-24 h-24 mx-auto rounded-full mb-4 border-2 border-orange-500"
-                                />
-                                {/* Testimonial Text */}
-                                <p className="text-gray-600 italic mb-4">{testimonial.text}</p>
-                                {/* Client Name */}
-                                <p className="font-semibold text-gray-800">{testimonial.name}</p>
-                            </div>
-                        ))}
-                    </Slider>
+                    {/* Testimonials Section */}
+                    <div className="w-full lg:w-1/2 mt-8 lg:mt-0">
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-6">
+                            What Our Clients Say
+                        </h2>
+                        <div className="max-w-[90vw] md:max-w-full mx-auto">
+                            <Slider {...settings} className="testimonial-slider">
+                                {testimonials.map((testimonial) => (
+                                    <div key={testimonial.id} className="px-4">
+                                        <div className="text-center bg-[#DBD9B4] p-6 md:p-12 rounded-lg shadow-md">
+                                            <img
+                                                src={testimonial.image}
+                                                alt={testimonial.name}
+                                                className="w-20 h-20 md:w-24 md:h-24 mx-auto rounded-full mb-4 border-2 border-orange-500"
+                                            />
+                                            <p className="text-sm md:text-base text-gray-600 italic mb-4">{testimonial.text}</p>
+                                            <p className="font-semibold text-gray-800">{testimonial.name}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </Slider>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

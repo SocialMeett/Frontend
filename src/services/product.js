@@ -9,19 +9,18 @@ export const apiCreateCircle = async (payload) => {
     return apiClient.post("/circles", payload, {headers})
 }
 
-export const apiJoinCircle = async (inviteCode) => {
-  const token = localStorage.getItem("token"); 
-  const headers = {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-  };
-
-  return apiClient.post(`/circles/join`, { inviteCode }, { headers }); // Send inviteCode directly
+export const apiJoinCircle = async (code) => {
+    const token = localStorage.getItem("token"); 
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
+    
+    return apiClient.post('/circles/join', { 
+        inviteCode: code 
+    }, { headers });
 };
-
-
 
 export const apiGetCircle = async (id) =>{
     return apiClient.get(`/circles/${id}`)
-    
 }

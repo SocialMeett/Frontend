@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { MdEmail } from "react-icons/md";
+import { MdEmail, MdOutlinePermIdentity } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { MdOutlinePermIdentity } from "react-icons/md";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { FaLocationDot, FaClipboardUser } from "react-icons/fa6";
+import { IoArrowBack } from "react-icons/io5"; // Import the back icon
 import { Link, useNavigate } from "react-router-dom";
 import { apiSignUp } from "../../services/auth";
 import Swal from "sweetalert2";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { FaLocationDot, FaClipboardUser } from "react-icons/fa6";
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ const SignUp = () => {
       const fullName = formData.get("fullName");
       const email = formData.get("email");
       const password = formData.get("password");
-      const latitude = Number(formData.get("latitude")); 
+      const latitude = Number(formData.get("latitude"));
       const longitude = Number(formData.get("longitude"));
       const role = formData.get("role");
 
@@ -61,7 +61,16 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-300 to-blue-300">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-300 to-blue-300 relative">
+      {/* Back Icon */}
+      <button
+        onClick={() => navigate("/")}
+        className="absolute top-6 left-6 flex items-center text-gray-600 hover:text-gray-800"
+      >
+        <IoArrowBack className="mr-2 text-4xl" />
+        
+      </button>
+
       <div className="flex w-[800px] h-[500px] bg-white rounded-lg overflow-hidden shadow-xl">
         {/* Left side - Form */}
         <div className="w-[400px] p-8">
@@ -138,7 +147,7 @@ const SignUp = () => {
             </div>
 
             <div className="relative">
-              <FaClipboardUser className="absolute left-3 top-1/4 -translate-y-1/2 text-gray-400" />
+              <FaClipboardUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <select
                 name="role"
                 className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-[4px] text-sm focus:outline-none focus:border-gray-400"
@@ -148,10 +157,6 @@ const SignUp = () => {
                 <option value="admin">Admin</option>
                 <option value="member">Member</option>
               </select>
-              <p className="mt-2 text-xs text-gray-500">
-                Your role is flexible. You can create or join circles regardless
-                of your choice and update it later in your profile settings.
-              </p>
             </div>
 
             <button

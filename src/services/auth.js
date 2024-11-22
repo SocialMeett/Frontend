@@ -1,44 +1,63 @@
 import { apiClient } from "./config";
 
 export const apiSignUp = async (payload) => {
-    return await apiClient.post("/users/register", payload)
+    const { location, ...restPayload } = payload;
+    const response = await apiClient.post("/users/register", restPayload);
+    if (response.data.token) {
+        // Clear any existing data first
+        localStorage.clear();
+        // Then set the new token
+        localStorage.setItem("token", response.data.token);
+    }
+    return response;
 }
 
 export const apiLogin = async (payload) => {
-    return apiClient.post("/users/login", payload)
-
+    const response = await apiClient.post("/users/login", payload);
+    if (response.data.token) {
+        // Clear any existing data first
+        localStorage.clear();
+        // Then set the new token
+        localStorage.setItem("token", response.data.token);
+    }
+    return response;
 }
 
-
 export const apiGetProfile = async () => {
-    return apiClient.get("/users/me")
-
+    const token = localStorage.getItem("token");
+    if (!token) {
+        throw new Error('No token found');
+    }
+    
+    apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return apiClient.get("/users/me");
 }
 
 export const logout = () => {
-    localStorage.removeItem("token"); 
-  };
-  
-
- 
-  export const apiUpdateProfile = async (locationData) => {
-    try {
-        const response = await apiClient.patch(
-            `/users/me`,
-            {
-                latitude: locationData.location.latitude,
-                longitude: locationData.location.longitude
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
-        return response;
-    } catch (error) {
-        console.error("Error in apiUpdateProfile:", error);
-        throw error;
-    }
+    localStorage.clear();
 };
-  
+
+export const apiUpdateProfile = async (updateData) => {
+  try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error('No token found');
+
+      // Add the Authorization header
+      apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      const { location, ...restUpdateData } = updateData;
+      const response = await apiClient.patch(
+          `/users/me`,
+          restUpdateData,
+          {
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+          }
+      );
+      return response;
+  } catch (error) {
+      console.error("Error in apiUpdateProfile:", error);
+      throw error;
+  }
+};
