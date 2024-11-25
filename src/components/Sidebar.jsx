@@ -27,21 +27,21 @@ const Sidebar = () => {
                 
                 <ul className="flex-grow leading-6 p-4">
                     <li className="mb-8">
-                        <NavLink to="/dashboard" className="flex items-center space-x-2 hover:text-blue-300" activeClassName="text-blue-300">
+                        <NavLink to="/dashboard/map" className="flex items-center space-x-2 hover:text-blue-300" activeClassName="text-blue-300">
                             <FaUserCircle />
                             <span>Map</span>
                         </NavLink>
                     </li>
                     <li className="mb-8">
-                        <NavLink to="/dashboard/overview" className="flex items-center space-x-2 hover:text-blue-300" activeClassName="text-blue-300">
+                        <NavLink to="/dashboard" className="flex items-center space-x-2 hover:text-blue-300" activeClassName="text-blue-300">
                             <FaMapMarkedAlt />
                             <span>Dashboard</span>
                         </NavLink>
                     </li>
                     <li className="mb-8">
-                        <NavLink to="/dashboard/friends" className="flex items-center space-x-2 hover:text-blue-300" activeClassName="text-blue-300">
+                        <NavLink to="/dashboard/contacts" className="flex items-center space-x-2 hover:text-blue-300" activeClassName="text-blue-300">
                             <FaUserFriends />
-                            <span>Friends List</span>
+                            <span>Emergency List</span>
                         </NavLink>
                     </li>
                     <li className="mb-8">

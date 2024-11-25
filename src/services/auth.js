@@ -61,3 +61,16 @@ export const apiUpdateProfile = async (updateData) => {
       throw error;
   }
 };
+
+const updateLocationAndProfile = async (latitude, longitude) => {
+  try {
+      const locationData = { location: { latitude, longitude } };
+      await apiUpdateProfile(locationData);
+      console.log("Location updated successfully");
+
+      // Optionally, re-fetch user profile or update profile state here
+      // e.g., fetchProfile();
+  } catch (error) {
+      console.error("Error updating location:", error);
+  }
+};

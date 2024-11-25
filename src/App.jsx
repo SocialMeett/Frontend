@@ -19,6 +19,7 @@ import CreateCircle from './pages/Circle/Create'
 import DashboardOverview from './pages/dashboard/Dashboard'
 import ProtectedRoute from './pages/dashboard/ProtectedRoute'
 import CircleOptions from './pages/Circle/CircleOptions'
+import EmergencyContactList from './pages/dashboard/FriendsList'
 
 
 
@@ -37,13 +38,15 @@ const router = createBrowserRouter([
 {path: "/signup",
  element: <SignUp/>
 },
+
 {path: "/circle-options",
  element: <CircleOptions/>
 },
 
-{path: "/create",
- element: <CreateCircle/>
+{ path: "/create",
+element: <CreateCircle/>
 },
+
 {path: "/join",
  element: <JoinCircle/>
 },
@@ -52,20 +55,20 @@ const router = createBrowserRouter([
  element: <ProtectedRoute element={<DashboardLayout />} />,
 children: [
     {
-        index: "true",
-        element:<Map/>
+        index: true,
+        element: <DashboardOverview/>
     },
     {
-        path: "friends",
-        element:<FriendsList/>
+        path: "contacts",
+        element:<EmergencyContactList/>
     },
     {
         path: "panic",
         element:<PanicButton/>
     },
     {
-        path: "overview",
-        element:<DashboardOverview/>
+        path: "map",
+        element:<Map/>
     },
     {
         path: "logout",

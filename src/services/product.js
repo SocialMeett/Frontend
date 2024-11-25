@@ -21,6 +21,23 @@ export const apiJoinCircle = async (code) => {
     }, { headers });
 };
 
-export const apiGetCircle = async (id) =>{
-    return apiClient.get(`/circles/${id}`)
-}
+export const apiGetCircles = async (id) => {
+    try {
+        const response = await apiClient.get(`/circles/${id}`);
+        return response.data;  // Returning the circle data
+    } catch (error) {
+        console.error("Error fetching circle:", error);
+        throw error;  // Throwing error to handle it further up in your app
+    }
+};
+
+
+export const getUserLocation = async (userId) => {
+  try {
+    const response = await apiClient.get(`/users/location/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user location:', error);
+    throw error;
+  }
+};

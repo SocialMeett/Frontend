@@ -1,17 +1,36 @@
 import React from 'react';
 
-const FriendsList = () => {
+const EmergencyContactList = ({ contacts = [] }) => {
     return (
-        <div className="bg-white p-6 rounded-lg shadow">
-            <h2 className="text-2xl font-bold mb-4">Friends List</h2>
-            {/* Placeholder content for the friends list */}
-            <ul>
-                <li className="border-b py-2">Friend 1 - Location: (40.7128, -74.0060)</li>
-                <li className="border-b py-2">Friend 2 - Location: (34.0522, -118.2437)</li>
-                {/* Add more friends as needed */}
-            </ul>
+        <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-2xl font-bold mb-4">Emergency Contact List</h2>
+            {contacts.length > 0 ? (
+                <ul className="space-y-4">
+                    {contacts.map((contact, index) => (
+                        <li
+                            key={index}
+                            className="p-4 border rounded-md shadow-sm bg-gray-50"
+                        >
+                            <p>
+                                <strong>Name:</strong> {contact.contactName}
+                            </p>
+                            <p>
+                                <strong>Relationship:</strong> {contact.relationship}
+                            </p>
+                            <p>
+                                <strong>Phone:</strong> {contact.phoneNumber}
+                            </p>
+                            <p>
+                                <strong>Email:</strong> {contact.email}
+                            </p>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p className="text-gray-500">No contacts added yet.</p>
+            )}
         </div>
     );
 };
 
-export default FriendsList;
+export default EmergencyContactList;
